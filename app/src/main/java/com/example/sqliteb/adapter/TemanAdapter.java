@@ -29,7 +29,7 @@ public class TemanAdapter extends RecyclerView.Adapter<TemanAdapter.TemanViewHol
         this.listData = listData;
     }
 
-    public TemanAdapter(Context c, ArrayList<Teman> listData){
+    public TemanAdapter (Context control, ArrayList<Teman> listData){
 
         this.listData = listData;
     }

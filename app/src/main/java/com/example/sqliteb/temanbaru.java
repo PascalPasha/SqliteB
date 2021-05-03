@@ -34,7 +34,7 @@ public class temanbaru extends Activity {
             @Override
             public void onClick(View v) {
                 if (Nama.getText().toString().isEmpty() || Telepon.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Data belum Komplit !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Mohon Isi Data Terlebih Dahulu !", Toast.LENGTH_SHORT).show();
                 }else {
                     nma = Nama.getText().toString();
                     tlp = Telepon.getText().toString();
