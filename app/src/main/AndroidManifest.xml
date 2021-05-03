@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SqliteB">
-        <activity android:name=".teman_baru"></activity>
+        <activity android:name=".edit_teman" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".temanbaru" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

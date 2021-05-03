@@ -1,25 +1,26 @@
 package com.example.sqliteb.database;
 
 import android.content.ContentValues;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DBController extends SQLiteOpenHelper {
-    public DBController(@Nullable Context context) {
+
+    public static Object teman;
+
+    public DBController(Context context) {
         super(context, "ProdiTI", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table teman (id integer primary key, nama text, telpon text)");
+        db.execSQL("create table teman (id integer primary key, nama text, telepon text)");
     }
 
     @Override
@@ -28,13 +29,26 @@ public class DBController extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(HashMap<String,String> queryValues){
+    public void InsertData(HashMap<String,String> queryValues){
         SQLiteDatabase basisdata = this.getWritableDatabase();
         ContentValues nilai = new ContentValues();
-        nilai.put("nama",queryValues.get("nama"));
-        nilai.put("telpon",queryValues.get("telpon"));
-        basisdata.insert("teman",null,nilai);
+        nilai.put("nama", queryValues.get("nama"));
+        nilai.put("telpon", queryValues.get("telpon"));
+        basisdata.insert("teman",null, nilai);
         basisdata.close();
+    }
+    public void UpdateData(HashMap<String,String> queryValues){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues nilai = new ContentValues();
+        nilai.put("nama", queryValues.get("nama"));
+        nilai.put("telepon", queryValues.get("telepon"));
+        db.update("teman", nilai,"id=?",new String[]{queryValues.get("id")});
+        db.close();
+    }
+    public void DeleteData(HashMap<String,String> queryValue){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("teman", "id=?",new String[]{queryValue.get("id")});
+        db.close();
     }
 
     public ArrayList<HashMap<String,String>> getAllTeman(){
@@ -43,17 +57,18 @@ public class DBController extends SQLiteOpenHelper {
         String selectQuery = "Select * from teman";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 HashMap<String,String> map = new HashMap<>();
-                map.put("id",cursor.getString(0));
-                map.put("nama",cursor.getString(1));
-                map.put("telpon",cursor.getString(2));
+                map.put("id", cursor.getString(0));
+                map.put("nama", cursor.getString(1));
+                map.put("telepon", cursor.getString(2));
                 daftarTeman.add(map);
-            } while (cursor.moveToNext());
+            }while (cursor.moveToNext());
         }
         db.close();
         return daftarTeman;
     }
+
 
 }
